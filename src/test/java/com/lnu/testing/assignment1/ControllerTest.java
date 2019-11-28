@@ -6,6 +6,9 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,12 +16,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lnu.testing.assignment1.model.Grade;
 import com.lnu.testing.assignment1.model.GradeType;
+import com.lnu.testing.assignment1.service.GradeService;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,10 +37,14 @@ class ControllerTest {
 
   @Autowired MockMvc mockMvc;
 
+  @MockBean
+  GradeService service;
+
   @Autowired private ObjectMapper objectMapper;
 
   @Test
   void shouldGetAllGrades() throws Exception {
+
     // given
     List<Grade> grades = new ArrayList<>();
     grades.add(new Grade(1L, GradeType.A, "Software testing"));
@@ -63,5 +72,15 @@ class ControllerTest {
             allOf(
                 hasProperty("type", is(grades.get(1).getType())),
                 hasProperty("course", is(grades.get(1).getCourse())))));
+  }
+
+  @Test
+  void shouldGetAllGradesFromGradeService() throws Exception {
+    // when
+    mockMvc
+        .perform(MockMvcRequestBuilders.get("/grades").contentType(MediaType.APPLICATION_JSON));
+    // then
+    verify(service,times(1)).findAll();
+
   }
 }
