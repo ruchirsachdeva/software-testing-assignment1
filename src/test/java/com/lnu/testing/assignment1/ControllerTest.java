@@ -27,7 +27,7 @@ class ControllerTest {
         .perform(MockMvcRequestBuilders.get("/grades").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", hasSize(2)))
-        .andExpect(content().json("{'message':'ok'}"))
+        .andExpect(content().json("['A','B']"))
         .andDo(print());
   }
 }
