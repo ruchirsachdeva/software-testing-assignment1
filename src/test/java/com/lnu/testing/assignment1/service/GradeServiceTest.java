@@ -7,17 +7,23 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import com.lnu.testing.assignment1.model.Grade;
+import com.lnu.testing.assignment1.repository.GradeRepository;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 @SpringBootTest
 public class GradeServiceTest {
 
   @Autowired private GradeService service;
+
+  @MockBean private GradeRepository repository;
 
   @Test
   public void shouldFindAllGrades() {
@@ -38,5 +44,13 @@ public class GradeServiceTest {
             allOf(
                 hasProperty("type", is(grades.get(1).getType())),
                 hasProperty("course", is(grades.get(1).getCourse())))));
+  }
+
+  @Test
+  void shouldGetAllGradesFromRepository() {
+    // when
+    service.findAll();
+    // then
+    verify(repository, times(1)).findAll();
   }
 }
