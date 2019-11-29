@@ -1,5 +1,6 @@
-package com.lnu.testing.assignment1;
+package com.lnu.testing.assignment1.controller;
 
+import static com.lnu.testing.assignment1.util.TestUtil.allGrades;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasItems;
@@ -15,9 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lnu.testing.assignment1.model.Grade;
-import com.lnu.testing.assignment1.model.GradeType;
 import com.lnu.testing.assignment1.service.GradeService;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,9 +44,7 @@ class ControllerTest {
   void shouldGetAllGrades() throws Exception {
 
     // given
-    List<Grade> grades = new ArrayList<>();
-    grades.add(new Grade(1L, GradeType.A, "Software testing"));
-    grades.add(new Grade(2L, GradeType.B, "Adaptive and web semantics"));
+    List<Grade> grades = allGrades();
 
     when(service.findAll()).thenReturn(grades);
 
@@ -74,6 +71,7 @@ class ControllerTest {
                 hasProperty("type", is(grades.get(1).getType())),
                 hasProperty("course", is(grades.get(1).getCourse())))));
   }
+
 
   @Test
   void shouldGetAllGradesFromGradeService() throws Exception {
