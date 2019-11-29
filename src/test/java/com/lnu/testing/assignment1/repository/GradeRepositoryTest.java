@@ -38,6 +38,7 @@ public class GradeRepositoryTest {
   public void shouldGetAllGrades() {
     // given
     List<Grade> grades = allGrades();
+    grades.forEach(grade -> entityManager.getEntityManager().persist(grade));
     // when
     final List<Grade> response = repository.findAll();
 
@@ -65,6 +66,7 @@ public class GradeRepositoryTest {
     final List<Grade> response = repository.findAll();
 
     // then
+    assertThat(response, hasSize(1));
     assertThat(
         response,
         hasItems(

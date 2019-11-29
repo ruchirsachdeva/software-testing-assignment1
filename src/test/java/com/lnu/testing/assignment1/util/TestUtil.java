@@ -9,10 +9,8 @@ public class TestUtil {
 
   public static List<Grade> allGrades() {
     List<Grade> grades = new ArrayList<>();
-    grades.add(new Grade(1L, GradeType.A, "Software testing"));
-    grades.add(new Grade(2L, GradeType.B, "Adaptive and web semantics"));
+    grades.add(new Grade(GradeType.A, "Software testing"));
+    grades.add(new Grade(GradeType.B, "Adaptive and web semantics"));
     return grades;
   }
-
-
 }
