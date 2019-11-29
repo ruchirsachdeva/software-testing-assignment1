@@ -56,16 +56,16 @@ public class GradeRepositoryTest {
   }
 
   @Test
-  public void shouldGetAllGradesFromDatabase() {
+  public void shouldSaveGrade() {
     // given
     final Grade newGrade = new Grade(GradeType.A, "Data science");
 
-    entityManager.getEntityManager().persist(newGrade);
-
     // when
-    final List<Grade> response = repository.findAll();
+    repository.save(newGrade);
 
     // then
+    final List<Grade> response = repository.findAll();
+
     assertThat(response, hasSize(1));
     assertThat(
         response,
