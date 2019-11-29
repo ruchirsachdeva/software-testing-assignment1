@@ -29,6 +29,11 @@ public class Grade {
     this.course = course;
   }
 
+  public Grade(GradeType gradeType, String course) {
+    this.type = gradeType;
+    this.course = course;
+  }
+
   public long getId() {
     return id;
   }
