@@ -15,7 +15,7 @@ public class Controller {
   @Autowired private GradeService service;
 
   @GetMapping("/grades")
-  ResponseEntity<List<Grade>> getAllGrades() {
+  public ResponseEntity<List<Grade>> getAllGrades() {
     return new ResponseEntity(service.findAll(), HttpStatus.OK);
   }
 }

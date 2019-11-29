@@ -23,12 +23,6 @@ public class Grade {
     // Only for use by hibernate.
   }
 
-  public Grade(long id, GradeType gradeType, String course) {
-    this.id = id;
-    this.type = gradeType;
-    this.course = course;
-  }
-
   public Grade(GradeType gradeType, String course) {
     this.type = gradeType;
     this.course = course;
