@@ -37,8 +37,7 @@ class ControllerTest {
 
   @Autowired MockMvc mockMvc;
 
-  @MockBean
-  GradeService service;
+  @MockBean GradeService service;
 
   @Autowired private ObjectMapper objectMapper;
 
@@ -49,6 +48,8 @@ class ControllerTest {
     List<Grade> grades = new ArrayList<>();
     grades.add(new Grade(1L, GradeType.A, "Software testing"));
     grades.add(new Grade(2L, GradeType.B, "Adaptive and web semantics"));
+
+    when(service.findAll()).thenReturn(grades);
 
     // when
     ResultActions resultActions =
@@ -77,10 +78,8 @@ class ControllerTest {
   @Test
   void shouldGetAllGradesFromGradeService() throws Exception {
     // when
-    mockMvc
-        .perform(MockMvcRequestBuilders.get("/grades").contentType(MediaType.APPLICATION_JSON));
+    mockMvc.perform(MockMvcRequestBuilders.get("/grades").contentType(MediaType.APPLICATION_JSON));
     // then
-    verify(service,times(1)).findAll();
-
+    verify(service, times(1)).findAll();
   }
 }
