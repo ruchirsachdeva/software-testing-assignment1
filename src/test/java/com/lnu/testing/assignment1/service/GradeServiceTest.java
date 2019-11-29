@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.lnu.testing.assignment1.model.Grade;
 import com.lnu.testing.assignment1.repository.GradeRepository;
@@ -29,7 +30,7 @@ public class GradeServiceTest {
   public void shouldFindAllGrades() {
     // given
     List<Grade> grades = allGrades();
-
+    when(repository.findAll()).thenReturn(grades);  
     // when
     final List<Grade> response = service.findAll();
 
